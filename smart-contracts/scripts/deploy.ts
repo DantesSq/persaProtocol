@@ -6,16 +6,22 @@ async function main() {
 
   const lockedAmount = ethers.parseEther("0.001");
 
-  const lock = await ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const persaProtocol = await ethers.deployContract(
+    "PersaProtocol",
+    [unlockTime],
+    {
+      value: lockedAmount,
+    }
+  );
 
-  await lock.waitForDeployment();
+  await persaProtocol.waitForDeployment();
 
   console.log(
     `Lock with ${ethers.formatEther(
       lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
+    )}ETH and unlock timestamp ${unlockTime} deployed to ${
+      persaProtocol.target
+    }`
   );
 }
 
